@@ -1,0 +1,17 @@
+{
+    "name": "echo-discord-alternative",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "bcryptjs": "^3.0.2",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.2",
+        "multer": "^2.0.1",
+        "nodemailer": "^7.0.4",
+        "socket.io": "^4.7.2",
+        "sqlite3": "^5.1.7"
+    }
+}
