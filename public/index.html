@@ -1,1 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Echo</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Authentification -->
+  <div id="auth-container">
+    <form id="login-form" autocomplete="off">
+      <div class="auth-logo-row">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="4.2"/><path d="M4.5 20c0-3.1 3.1-5.5 7.5-5.5s7.5 2.4 7.5 5.5"/></svg>
+      </div>
+      <h2>Login</h2>
+      <div class="input-group">
+        <input id="login-email" type="email" required placeholder="Email" autocomplete="email" />
+      </div>
+      <div class="input-group">
+        <input id="login-password" type="password" required placeholder="Password" autocomplete="new-password" />
+      </div>
+      <button type="submit" class="round-btn auth-btn-ext">
+        <span>Log in</span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <p>No account? <a href="#" id="show-register">Register</a></p>
+      <div class="error" id="login-error"></div>
+    </form>
+    <form id="register-form" style="display:none;" autocomplete="off">
+      <div class="auth-logo-row">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="4.2"/><path d="M4.5 20c0-3.1 3.1-5.5 7.5-5.5s7.5 2.4 7.5 5.5"/></svg>
+      </div>
+      <h2>Register</h2>
+      <div class="input-group">
+        <input id="register-email" type="email" required placeholder="Email" autocomplete="email" />
+      </div>
+      <div class="input-group">
+        <input id="register-username" type="text" required placeholder="Username" autocomplete="username-new" />
+      </div>
+      <div class="input-group">
+        <input id="register-password" type="password" required placeholder="Password" autocomplete="new-password" />
+      </div>
+      <button type="submit" class="round-btn auth-btn-ext">
+        <span>Sign up</span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <p>Already registered? <a href="#" id="show-login">Login</a></p>
+      <div class="error" id="register-error"></div>
+    </form>
+  </div>
 
+  <!-- Application principale -->
+  <div id="main-container" style="display:none;">
+    <div id="main-flex">
+      <nav id="servers">
+        <div id="server-actions-panel">
+          <button id="open-mp" class="server-action-btn" title="Private messages / Friends" type="button">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </button>
+          <button id="open-settings" class="server-action-btn" title="User settings" type="button">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 8.6 15a1.65 1.65 0 0 0-1.82-.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 5 8.6a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 15 8.6a1.65 1.65 0 0 0 1.82.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 15z"/></svg>
+          </button>
+          <button id="open-create-server" class="server-action-btn" title="Create a server" type="button">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <button id="open-join-server" class="server-action-btn" title="Join a server" type="button">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <ul id="server-list"></ul>
+      </nav>
+      <aside id="channels" style="display:none;">
+        <div id="server-name"></div>
+        <div class="channels-section">
+          <h4>Text channels <button id="open-create-text" class="round-btn" title="Create a text channel" type="button">+</button></h4>
+          <ul id="channel-list"></ul>
+        </div>
+        <div class="channels-section">
+          <h4>Voice channels <button id="open-create-voice" class="round-btn" title="Create a voice channel" type="button">+</button></h4>
+          <ul id="voice-channel-list"></ul>
+        </div>
+        <div class="channels-section">
+          <h4>Server members</h4>
+          <div id="server-user-list"></div>
+          <!-- Bloc MP classique (hors page MP/Amis) -->
+<section id="pm-section" style="display:none;flex-direction:column;height:100%;">
+  <div id="pm-messages" style="flex:1;overflow-y:auto;width:100%"></div>
+  <form id="pm-form" autocomplete="off" style="display:flex;align-items:center;gap:12px;margin-top:12px;width:100%;position:sticky;bottom:0;">
+    <button class="image-btn" title="Envoyer une image" type="button" style="order:0;">
+      <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="3"/><circle cx="8.5" cy="10" r="2.2"/><path d="M3.5 17l4.5-5a2 2 0 0 1 3 0l3 3.5a2 2 0 0 0 3 0l3-3.5"/></svg>
+    </button>
+    <input id="pm-input" type="text" placeholder="Write a private message..." autocomplete="off" style="flex:1 1 auto;" />
+    <button class="round-btn" title="Envoyer" type="submit">➤</button>
+  </form>
+</section>
+        </div>
+      </aside>
+      <!-- Panneau flottant vocal -->
+      <div id="voice-panel" style="display:none;">
+        <span class="avatar">E</span>
+        <span class="voice-username">Me</span>
+        <span class="voice-ping"></span>
+        <button class="mute-btn" title="Mute" type="button">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2"/></svg>
+        </button>
+        <button class="leave-voice-btn" title="Quitter" type="button">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+        </button>
+      </div>
+      <section id="chat-section" style="display:none;">
+        <header>
+          <span id="current-channel">#general</span>
+          <span id="user-info"></span>
+        </header>
+        <div id="messages">
+          <div id="no-channel-selected" style="display:none;">No channel selected.</div>
+        </div>
+        <form id="form" autocomplete="off">
+          <button class="image-btn" title="Envoyer une image" type="button" style="order:0;">
+            <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="3"/><circle cx="8.5" cy="10" r="2.2"/><path d="M3.5 17l4.5-5a2 2 0 0 1 3 0l3 3.5a2 2 0 0 0 3 0l3-3.5"/></svg>
+          </button>
+          <input id="input" type="text" placeholder="Write a message..." autocomplete="off" />
+          <button class="round-btn" title="Envoyer" type="submit">➤</button>
+        </form>
+      </section>
+      <!-- NOUVELLE PAGE MP/AMIS -->
+      <section id="mp-page" style="display:none;flex:1 1 auto;min-width:0;">
+        <div id="mp-header" style="display:flex;align-items:center;justify-content:space-between;padding:24px 32px 0 32px;">
+          <h2 style="margin:0;font-size:1.5em;font-weight:700;color:#fff;">Private messages</h2>
+          
+        </div>
+        <div id="mp-content" style="display:flex;gap:32px;padding:32px;">
+          <div class="friends-section" style="flex:0 0 260px;max-width:320px;background:#202225;border-radius:14px;padding:24px 18px 18px 18px;">
+            <h4>Friends</h4>
+            <ul id="friends-list-mp"></ul>
+            <ul id="friend-requests-list"></ul>
+          </div>
+          <div class="mp-section" style="flex:1 1 0;background:#23272a;border-radius:14px;padding:24px 18px 18px 18px;">
+            <h4>Private messages</h4>
+            <ul id="user-list-mp"></ul>
+            <div id="pm-section-mp" style="display:none;margin-top:24px;">
+              <div id="pm-messages-mp"></div>
+              <form id="pm-form-mp" autocomplete="off" style="display:flex;align-items:center;gap:12px;margin-top:12px;">
+                <input id="pm-input-mp" type="text" placeholder="Write a private message..." autocomplete="off" style="flex:1 1 auto;" />
+                <button class="round-btn" title="Envoyer" type="submit">➤</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Tous les modaux sont ici, à la racine du body -->
+  <!-- Popup création serveur -->
+  <div id="modal-create-server" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2 style="text-align:center;">Create a server</h2>
+      <form id="modal-create-server-form" autocomplete="off">
+        <div class="modal-fields">
+          <label for="modal-server-name">Server name</label>
+          <input id="modal-server-name" type="text" placeholder="Server name" required />
+        </div>
+        <div class="modal-actions-row">
+          <button type="button" class="modal-btn close-modal">Cancel</button>
+          <button type="submit" class="modal-btn">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Popup Join serveur -->
+  <div id="modal-join-server" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Join a server</h2>
+      <form id="modal-join-server-form" autocomplete="off">
+        <label for="modal-invite-code">Invite code</label>
+        <input id="modal-invite-code" type="text" placeholder="Invite code" required />
+        <div class="modal-actions-row">
+          <button type="submit" class="modal-btn">Join</button>
+          <button type="button" class="close-modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Popup création vocal -->
+  <div id="modal-create-voice" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Create a voice channel</h2>
+      <form id="modal-create-voice-form" autocomplete="off">
+        <label for="modal-voice-name">Voice channel name</label>
+        <input id="modal-voice-name" type="text" placeholder="Voice channel name" required />
+        <label for="modal-voice-private"><span class="switch"><input type="checkbox" id="modal-voice-private"><span class="slider"></span></span>Private</label>
+        <div class="modal-actions-row">
+          <button type="submit" class="modal-btn">Create</button>
+          <button type="button" class="close-modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal création channel textuel -->
+  <div id="modal-create-text" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Create a text channel</h2>
+      <form id="modal-create-text-form" autocomplete="off">
+        <label for="modal-text-name">Channel name</label>
+        <input id="modal-text-name" type="text" placeholder="Channel name" required />
+        <label for="modal-text-private"><span class="switch"><input type="checkbox" id="modal-text-private"><span class="slider"></span></span>Private</label>
+        <div class="modal-actions-row">
+          <button type="submit" class="modal-btn">Create</button>
+          <button type="button" class="close-modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal paramètres utilisateur -->
+  <div id="modal-settings" class="modal fullscreen-modal" style="display:none;">
+    <div class="settings-flex">
+      <nav class="settings-sidebar">
+        <div class="settings-sidebar-group">USER SETTINGS - BUGGED</div>
+        <button class="settings-sidebar-btn active" data-tab="account" type="button"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg> </span>My account</button>
+        <button class="settings-sidebar-btn" data-tab="profile" type="button"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 2v4m8-4v4"/></svg> </span>Profile</button>
+        <button class="settings-sidebar-btn" data-tab="sessions" type="button"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M8 2h8"/></svg> </span>Sessions</button>
+        <div class="settings-sidebar-group">CLIENT SETTINGS</div>
+        <button class="settings-sidebar-btn" data-tab="audio" type="button"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2"/></svg> </span>Voice options</button>
+        <button class="settings-sidebar-btn" data-tab="appearance" type="button"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20"/></svg> </span>Appearance</button>
+        <button class="settings-sidebar-btn" data-tab="notifications" type="button"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> </span>Notifications</button>
+        <button class="settings-sidebar-btn" data-tab="lang" type="button"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg> </span>Language</button>
+        <button class="settings-sidebar-btn" data-tab="experiments" type="button"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a6 6 0 0 0 12 0V3"/><path d="M6 17h12"/></svg> </span>Experiments</button>
+        <div class="settings-sidebar-group">REVIEW</div>
+        <button class="settings-sidebar-btn" data-tab="about" type="button"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> </span>About</button>
+        <button class="settings-sidebar-btn logout-btn" type="button"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> </span>Logout</button>
+      </nav>
+      <div class="settings-panel">
+        <div class="settings-section active" id="settings-account">
+          <h2>My account</h2>
+          <div class="account-main-row">
+            <div class="account-avatar-block">
+              <label for="user-avatar-upload" class="user-avatar" id="user-avatar-label">
+                <img id="user-avatar-img" src="/uploads/default-avatar.png" alt="Avatar" style="display:none;" />
+                <span id="user-avatar-letter">U</span>
+                <input id="user-avatar-upload" type="file" accept="image/*" style="display:none;" />
+              </label>
+            </div>
+            <div class="account-fields-block">
+              <div class="account-field-row">
+                <span class="field-label"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg> </span>Username</span>
+                <span id="user-settings-pseudo-view" class="text-white"></span>
+              </div>
+              <div class="account-field-row">
+                <span class="field-label"><span class="sidebar-ico"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 2v4m8-4v4"/></svg> </span>Email</span>
+                <span id="user-settings-email-view" class="text-white"></span>
+              </div>
+            </div>
+          </div>
+          <div class="section-separator"></div>
+          <div class="account-2fa-block">
+            <h3>Two-factor authentication</h3>
+            <button class="big-action-btn" type="button">Generate recovery codes</button>
+            <button class="big-action-btn disabled" type="button">Add an authenticator</button>
+            <div class="alert alert-danger">You haven't enabled two-factor authentication!</div>
+          </div>
+          <div class="section-separator"></div>
+          <div class="account-danger-zone">
+            <h3>Account management</h3>
+            <button class="danger-btn" type="button">Disable account</button>
+            <button class="danger-btn" type="button">Mark account for deletion</button>
+          </div>
+        </div>
+        <div class="settings-section" id="settings-profile">
+          <h2>Profile</h2>
+          <div class="profile-avatar-row">
+            <label for="user-avatar-upload" class="user-avatar" id="user-avatar-label-profile" data-section="profile">
+              <img id="user-avatar-img-profile" src="/uploads/default-avatar.png" alt="Avatar" style="display:none;" />
+              <span id="user-avatar-letter-profile">U</span>
+              <input id="user-avatar-upload" type="file" accept="image/*" style="display:none;" />
+            </label>
+            <button class="edit-avatar-btn" type="button" data-section="profile">Edit</button>
+          </div>
+          <div class="profile-row">
+            <label for="user-settings-pseudo-profile" class="text-white" data-i18n="settings_username">Username</label>
+            <input type="text" id="user-settings-pseudo-profile" placeholder="Username" autocomplete="off" data-section="profile" />
+            <button class="edit-field-btn" data-field="pseudo-profile" data-section="profile" type="button">✏️</button>
+          </div>
+          <div class="profile-row">
+            <label for="user-bio" class="text-white">Bio</label>
+            <textarea id="user-bio" placeholder="Describe yourself in a few words..." maxlength="160" data-section="profile"></textarea>
+          </div>
+          <div class="profile-row">
+            <label for="user-location" class="text-white">Location</label>
+            <input id="user-location" type="text" placeholder="City, country..." maxlength="64" data-section="profile" />
+          </div>
+          <div class="profile-row">
+            <label for="user-pronouns" class="text-white">Pronouns</label>
+            <input id="user-pronouns" type="text" placeholder="he/him, she/her..." maxlength="32" data-section="profile" />
+          </div>
+        </div>
+        <div class="settings-section" id="settings-sessions">
+          <h2>Active sessions</h2>
+          <ul class="sessions-list">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M8 2h8"/></svg> Windows 10 · Chrome · 192.168.1.2 <span class="session-badge">Active</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M8 2h8"/></svg> Android · App · 192.168.1.3 <button class="session-logout-btn" title="Disconnect this session"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button></li>
+          </ul>
+        </div>
+        <div class="settings-section" id="settings-audio">
+          <h2>Voice options</h2>
+          <div class="audio-row">
+            <label for="audio-input">Microphone</label>
+            <select id="audio-input"><option>Default microphone</option></select>
+          </div>
+          <div class="audio-row">
+            <label for="audio-output">Speaker</label>
+            <select id="audio-output"><option>Default speaker</option></select>
+          </div>
+          <div class="audio-row">
+            <label for="voice-activation">Voice activation</label>
+            <label class="switch"><input type="checkbox" id="voice-activation"><span class="slider"></span></label>
+          </div>
+          <div class="audio-row">
+            <label for="voice-sensitivity">Sensitivity</label>
+            <input type="range" id="voice-sensitivity" min="0" max="100" value="50" />
+          </div>
+        </div>
+        <div class="settings-section" id="settings-appearance">
+          <h2>Appearance</h2>
+          <div class="appearance-row">
+            <label for="theme-select">Theme</label>
+            <select id="theme-select">
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+              <option value="system">System</option>
+            </select>
+          </div>
+          <div class="appearance-row">
+            <label for="font-size">Text size</label>
+            <input type="range" id="font-size" min="12" max="22" value="16" />
+          </div>
+        </div>
+        <div class="settings-section" id="settings-notifications">
+          <h2>Notifications</h2>
+          <div class="notif-row">
+            <label for="notif-enable">Enable notifications</label>
+            <label class="switch"><input type="checkbox" id="notif-enable" checked><span class="slider"></span></label>
+          </div>
+          <div class="notif-row">
+            <label for="notif-sound">Sound</label>
+            <label class="switch"><input type="checkbox" id="notif-sound" checked><span class="slider"></span></label>
+          </div>
+        </div>
+        <div class="settings-section" id="settings-lang">
+          <h2>Language</h2>
+          <div class="lang-row">
+            <label for="lang-select">Choose language</label>
+            <select id="lang-select">
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+              <option value="es">Español</option>
+            </select>
+          </div>
+        </div>
+        <div class="settings-section" id="settings-experiments">
+          <h2>Experiments</h2>
+          <div class="exp-row">
+            <label for="exp-beta">Enable beta features</label>
+            <label class="switch"><input type="checkbox" id="exp-beta"><span class="slider"></span></label>
+          </div>
+        </div>
+        <div class="settings-section" id="settings-about">
+          <h2>About</h2>
+          <div class="about-row">
+            <p>Echo. Freedom of Speech, Redefined<br>Version 1.0.0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Ajoute un conteneur pour la liste des utilisateurs dans chaque vocal -->
+  <ul id="voice-users-list" style="margin:0;padding:0;list-style:none;"></ul>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if (window.Notification && Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
+  </script>
+</body>
+</html>
